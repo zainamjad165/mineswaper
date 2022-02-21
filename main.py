@@ -19,9 +19,9 @@ class Board:
        
         bombs_planted = 0
         while bombs_planted < self.num_bombs:
-            loc = random.randint(0, self.dim_size**2 - 1) 
-            row = loc // self.dim_size
-            col = loc % self.dim_size  
+            location = random.randint(0, self.dim_size**2 - 1) 
+            row = location // self.dim_size
+            col = location % self.dim_size  
 
             if board[row][col] == '*':
            
@@ -42,8 +42,6 @@ class Board:
                 self.board[r][c] = self.get_num_neighboring_bombs(r, c)
 
     def get_num_neighboring_bombs(self, row, col):
-
-
         num_neighboring_bombs = 0
         for r in range(max(0, row-1), min(self.dim_size-1, row+1)+1):
             for c in range(max(0, col-1), min(self.dim_size-1, col+1)+1):
@@ -126,7 +124,7 @@ def play(dim_size=10, num_bombs=10):
     while len(board.dug) < board.dim_size ** 2 - num_bombs:
         print(board)
        
-        user_input = re.split(',(\\s)*', input("Where would you like to dig? Input as row,col: "))  # '0, 3'
+        user_input = re.split(',(\\s)*', input("Where would you like to dig? Input as row,col: ")) 
         row, col = int(user_input[0]), int(user_input[-1])
         if row < 0 or row >= board.dim_size or col < 0 or col >= dim_size:
             print("Invalid location. Try again.")
@@ -141,10 +139,8 @@ def play(dim_size=10, num_bombs=10):
     if safe:
         print("CONGRATULATIONS!!!! YOU ARE VICTORIOUS!")
     else:
-        print("SORRY GAME OVER :(")
+        print("SORRY GAME OVER. You have steped on a mine.")
 
         board.dug = [(r,c) for r in range(board.dim_size) for c in range(board.dim_size)]
         print(board)
-
-if __name__ == '__main__': # good practice :)
-    play()
+play()
